@@ -14,6 +14,8 @@ public class PlayerCam : MonoBehaviour
 
     private void Start()
     {
+        orientation = PlayerMovement.current.orientation;
+
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
@@ -33,6 +35,6 @@ public class PlayerCam : MonoBehaviour
 
         transform.rotation = Quaternion.Euler(xRotation, yRotation, 0);
 
-        orientation.rotation = Quaternion.Euler(0, yRotation, 0);   
+        orientation.rotation = Quaternion.Euler(0, yRotation, 0);
     }
 }

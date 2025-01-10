@@ -6,8 +6,13 @@ public class MoveCamera : MonoBehaviour
 {
     public Transform cameraPosition;
 
+    private void Start()
+    {
+        cameraPosition = PlayerMovement.current.head;
+    }
+
     private void Update()
     {
-        transform.position = cameraPosition.position; 
+        transform.position = cameraPosition.position;
     }
 }

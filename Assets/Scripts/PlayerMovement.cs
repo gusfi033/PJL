@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+
+    public static PlayerMovement current;
     [Header("Movement")]
 
     private float moveSpeed = 10f;
@@ -47,11 +49,16 @@ public class PlayerMovement : MonoBehaviour
     private bool existingSlope;
 
     public Transform orientation;
+    public Transform head;
 
     float horizontalInput;
     float verticalInput;
 
     Vector3 moveDirection;
+
+    Vector3 startPos;
+    Vector3 startForward;
+
 
     Rigidbody rb;
 
@@ -69,11 +76,25 @@ public class PlayerMovement : MonoBehaviour
 
     public bool sliding;
     public bool crouching;
-    public bool wallRunning; 
+    public bool wallRunning;
+
+    private void Awake()
+    {
+        current = this;
+    }
 
     private void Start()
     {
-        rb = GetComponent<Rigidbody>(); 
+        rb = GetComponent<Rigidbody>();
+
+        startPos = transform.position;
+        startForward = transform.forward;
+
+        SetupVars();
+    }
+
+    private void SetupVars()
+    {
         rb.freezeRotation = true;
 
         readyToJump = true;
@@ -81,6 +102,17 @@ public class PlayerMovement : MonoBehaviour
         startYScale = transform.localScale.y;
     }
 
+
+    public void Resspawn()
+    {
+        SetupVars();
+
+        transform.position = startPos;
+        transform.forward = startForward;
+
+        rb.velocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
+    }
 
     private void Update()
     {
@@ -90,9 +122,9 @@ public class PlayerMovement : MonoBehaviour
         SpeedControl();
         StateHandler();
 
-        if(grounded)
+        if (grounded)
             rb.drag = groundDrag;
-        else 
+        else
             rb.drag = 0;
     }
 
@@ -106,7 +138,7 @@ public class PlayerMovement : MonoBehaviour
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
 
-        if(Input.GetKey(jumpKey) && readyToJump && grounded)
+        if (Input.GetKey(jumpKey) && readyToJump && grounded)
         {
             readyToJump = false;
 
@@ -123,8 +155,8 @@ public class PlayerMovement : MonoBehaviour
         }
 
         //stop crouch
-        if (Input.GetKeyUp(crouchKey)) 
-        { 
+        if (Input.GetKeyUp(crouchKey))
+        {
             transform.localScale = new Vector3(transform.localScale.x, startYScale, transform.localScale.z);
         }
     }
@@ -170,12 +202,12 @@ public class PlayerMovement : MonoBehaviour
             desiredMoveSpeed = walkSpeed;
         }
         //mode - air
-        else 
+        else
         {
             state = MovementState.air;
         }
         //check if desiredMoveSpeed has changed drastically
-        if(Mathf.Abs(desiredMoveSpeed - lastDesiredMoveSpeed) > 4f && moveSpeed != 0)
+        if (Mathf.Abs(desiredMoveSpeed - lastDesiredMoveSpeed) > 4f && moveSpeed != 0)
         {
             StopAllCoroutines();
             StartCoroutine(SmoothlyLerpMoveSpeed());
@@ -226,10 +258,10 @@ public class PlayerMovement : MonoBehaviour
                 rb.AddForce(Vector3.down * 80f, ForceMode.Force);
         }
 
-        else if(grounded)
+        else if (grounded)
             rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
 
-        else if(!grounded)
+        else if (!grounded)
             rb.AddForce(moveDirection.normalized * moveSpeed * 10f * airMultiplier, ForceMode.Force);
 
         // desligar gravidade numa slope
@@ -240,12 +272,12 @@ public class PlayerMovement : MonoBehaviour
     {
         //limitar a velocidade no slope
         if (OnSlope() && !existingSlope)
-        { 
-            if(rb.velocity.magnitude > moveSpeed)
+        {
+            if (rb.velocity.magnitude > moveSpeed)
                 rb.velocity = rb.velocity.normalized * moveSpeed;
         }
         //limitar a velocidade no chao e no ar 
-        else 
+        else
         {
             Vector3 flatVel = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
 
@@ -257,7 +289,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
 
-       
+
     }
 
     private void Jump()
@@ -267,22 +299,22 @@ public class PlayerMovement : MonoBehaviour
         //Dá reset a velocidade do vetor Y
         rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
 
-        rb.AddForce(transform.up * jumpForce, ForceMode.Impulse); 
+        rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
     }
 
     private void ResetJump()
     {
-        readyToJump= true;
+        readyToJump = true;
 
         existingSlope = false;
     }
 
     public bool OnSlope()
     {
-        if(Physics.Raycast(transform.position, Vector3.down, out slopeHit, playerHeight * 0.5f + 0.2f))
+        if (Physics.Raycast(transform.position, Vector3.down, out slopeHit, playerHeight * 0.5f + 0.2f))
         {
             float angle = Vector3.Angle(Vector3.up, slopeHit.normal);
-            return angle < maxSlopeAngle && angle !=0;
+            return angle < maxSlopeAngle && angle != 0;
         }
 
         return false;
