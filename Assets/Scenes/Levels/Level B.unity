@@ -150,7 +150,7 @@ MeshCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 195893646}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 90fb6d5f762f544468f455466c9a51d0, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -508,7 +508,7 @@ MeshCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 252694705}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 90fb6d5f762f544468f455466c9a51d0, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -915,7 +915,7 @@ MeshCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 651219515}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 90fb6d5f762f544468f455466c9a51d0, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -1341,7 +1341,7 @@ MeshCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 775446525}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 90fb6d5f762f544468f455466c9a51d0, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -2301,6 +2301,34 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 538269686604587558, guid: 73cdb8c4485cd3244a1530349f3b78a3, type: 3}
+      propertyPath: walkSpeed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 538269686604587558, guid: 73cdb8c4485cd3244a1530349f3b78a3, type: 3}
+      propertyPath: sprintSpeed
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 538269686604587558, guid: 73cdb8c4485cd3244a1530349f3b78a3, type: 3}
+      propertyPath: wallrunSpeed
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 538269686604587558, guid: 73cdb8c4485cd3244a1530349f3b78a3, type: 3}
+      propertyPath: airMultiplier
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 538269686604587558, guid: 73cdb8c4485cd3244a1530349f3b78a3, type: 3}
+      propertyPath: wallBounceForce
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 538269686604587558, guid: 73cdb8c4485cd3244a1530349f3b78a3, type: 3}
+      propertyPath: wallLayer.m_Bits
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1967806633756073362, guid: 73cdb8c4485cd3244a1530349f3b78a3, type: 3}
+      propertyPath: slideKey
+      value: 120
+      objectReference: {fileID: 0}
     - target: {fileID: 5086363502847010322, guid: 73cdb8c4485cd3244a1530349f3b78a3, type: 3}
       propertyPath: m_LocalPosition.x
       value: -3.03

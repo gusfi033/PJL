@@ -59,7 +59,6 @@ public class PlayerMovement : MonoBehaviour
     Vector3 startPos;
     Vector3 startForward;
 
-
     Rigidbody rb;
 
     public MovementState state;
@@ -68,7 +67,6 @@ public class PlayerMovement : MonoBehaviour
     {
         walking,
         sprinting,
-        wallrunning,
         crouching,
         sliding,
         air,
@@ -101,7 +99,6 @@ public class PlayerMovement : MonoBehaviour
 
         startYScale = transform.localScale.y;
     }
-
 
     public void Resspawn()
     {
@@ -163,12 +160,6 @@ public class PlayerMovement : MonoBehaviour
 
     private void StateHandler()
     {
-        //Mode - WallRunning 
-        if (wallRunning)
-        {
-            state = MovementState.wallrunning;
-            desiredMoveSpeed = wallrunSpeed;
-        }
         //Mode - Sliding
         if (sliding)
         {
@@ -192,7 +183,7 @@ public class PlayerMovement : MonoBehaviour
         else if (grounded && Input.GetKey(sprintKey))
         {
             state = MovementState.sprinting;
-            desiredMoveSpeed = sprintSpeed;
+            desiredMoveSpeed = sprintSpeed; // Aqui, a velocidade de sprint é definida imediatamente
         }
 
         //mode - walking
@@ -201,50 +192,15 @@ public class PlayerMovement : MonoBehaviour
             state = MovementState.walking;
             desiredMoveSpeed = walkSpeed;
         }
+
         //mode - air
         else
         {
             state = MovementState.air;
         }
-        //check if desiredMoveSpeed has changed drastically
-        if (Mathf.Abs(desiredMoveSpeed - lastDesiredMoveSpeed) > 4f && moveSpeed != 0)
-        {
-            StopAllCoroutines();
-            StartCoroutine(SmoothlyLerpMoveSpeed());
-        }
-        else
-        {
-            moveSpeed = desiredMoveSpeed;
-        }
 
-        lastDesiredMoveSpeed = desiredMoveSpeed;
-    }
-
-    private IEnumerator SmoothlyLerpMoveSpeed()
-    {
-        //smoothly lerp movementSpeed to desired value
-        float time = 0;
-        float difference = Mathf.Abs(desiredMoveSpeed - moveSpeed);
-        float startValue = moveSpeed;
-
-        while (time < difference)
-        {
-            moveSpeed = Mathf.Lerp(startValue, desiredMoveSpeed, time / difference);
-
-            if (OnSlope())
-            {
-                float slopeAngle = Vector3.Angle(Vector3.up, slopeHit.normal);
-                float slopeAngleIncrease = 1 + (slopeAngle / 90f);
-
-                time += Time.deltaTime * speedIncreaseMultiplier * slopeIncreaseMultiplier * slopeAngleIncrease;
-            }
-            time += Time.deltaTime * speedIncreaseMultiplier;
-            yield return null;
-        }
         moveSpeed = desiredMoveSpeed;
     }
-
-
 
     private void MovePlayer()
     {
@@ -287,9 +243,6 @@ public class PlayerMovement : MonoBehaviour
                 rb.velocity = new Vector3(limitedVel.x, rb.velocity.y, limitedVel.z);
             }
         }
-
-
-
     }
 
     private void Jump()
@@ -324,6 +277,4 @@ public class PlayerMovement : MonoBehaviour
     {
         return Vector3.ProjectOnPlane(direction, slopeHit.normal).normalized;
     }
-
-
 }

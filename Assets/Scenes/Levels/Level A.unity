@@ -1001,7 +1001,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5351904693825375434, guid: 5d88274e68f250142ad3106c9d86478c, type: 3}
       propertyPath: bombTime
-      value: 20
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 5351904693825375434, guid: 5d88274e68f250142ad3106c9d86478c, type: 3}
       propertyPath: nextLevel
