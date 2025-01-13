@@ -2008,6 +2008,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: UI Manager
       objectReference: {fileID: 0}
+    - target: {fileID: 7642810539767391134, guid: dd6426cf88c946a4b996d47b7875999f, type: 3}
+      propertyPath: m_text
+      value: 'Level 01
+
+'
+      objectReference: {fileID: 0}
     - target: {fileID: 8890633869405664954, guid: dd6426cf88c946a4b996d47b7875999f, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1920

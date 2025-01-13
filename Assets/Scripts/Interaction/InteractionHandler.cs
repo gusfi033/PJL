@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class InteractionHandler : MonoBehaviour
 {
+    public static InteractionHandler current;
 
     public Camera mainCamera;
 
@@ -11,10 +12,13 @@ public class InteractionHandler : MonoBehaviour
     public LayerMask layerMask = 1;
 
     public Interactor hoveredInteractor;
+    public float startInteractTime;
 
+    public float timerMultiplier=4.5f;
 
     private void Awake()
     {
+        current = this;
         mainCamera = Camera.main;
     }
 
@@ -27,8 +31,12 @@ public class InteractionHandler : MonoBehaviour
     void Update()
     {
         HoverInteract();
-
         if (Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            TryHoldInteract();
+        }
+
+        if (Input.GetKeyUp(KeyCode.Mouse0))
         {
             TryInteract();
         }
@@ -60,10 +68,19 @@ public class InteractionHandler : MonoBehaviour
 
     }
 
+    void TryHoldInteract()
+    {
+        if (hoveredInteractor == null) return;
+        startInteractTime = Time.time;
+
+        hoveredInteractor.StartHoldInteract();
+    }
     void TryInteract()
     {
         if (hoveredInteractor == null) return;
 
-        hoveredInteractor.Interact();
+        float currentTime = Time.time;
+
+        hoveredInteractor.Interact(currentTime - startInteractTime);
     }
 }

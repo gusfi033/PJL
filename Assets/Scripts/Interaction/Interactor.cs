@@ -4,5 +4,6 @@ using UnityEngine;
 
 public interface Interactor
 {
-    public void Interact();
+    public void StartHoldInteract();
+    public void Interact(float holdTime);
 }
