@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class Deathnound : MonoBehaviour
 {
-
-
     private void OnTriggerEnter(Collider other)
     {
         if (other.attachedRigidbody == null) return;

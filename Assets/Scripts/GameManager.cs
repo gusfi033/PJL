@@ -26,6 +26,11 @@ public class GameManager : MonoBehaviour
         PlayerMovement.current.Resspawn();
     }
 
+    public void FallCube()
+    {
+        FallingCube.current.Resspawn();
+    }
+
 
 
     public void GameOver()
