@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class UiManager : MonoBehaviour
 {
+    public Canvas cameraCanvas;
     public static UiManager current;
 
     [Header("Bomb")]
@@ -19,6 +20,7 @@ public class UiManager : MonoBehaviour
     private void Awake()
     {
         current = this;
+        cameraCanvas.worldCamera = Camera.main;
     }
 
 
