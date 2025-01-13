@@ -4,18 +4,19 @@ using System.Collections;
 
 public class UIElementDisappear : MonoBehaviour
 {
-    public GameObject uiElement;
+    public Image uiElement;
+    public float disapier;
 
     void Start()
     {
-        StartCoroutine(DisappearAfterTime(8f));
+        StartCoroutine(DisappearAfterTime(disapier));
     }
 
     private IEnumerator DisappearAfterTime(float time)
     {
         yield return new WaitForSeconds(time);
 
-        uiElement.SetActive(false);
+        uiElement.enabled= false;
 
     }
 }

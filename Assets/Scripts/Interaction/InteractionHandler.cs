@@ -10,6 +10,9 @@ public class InteractionHandler : MonoBehaviour
     public float raycastDist = 9f;
     public LayerMask layerMask = 1;
 
+    public Interactor hoveredInteractor;
+
+
     private void Awake()
     {
         mainCamera = Camera.main;
@@ -23,6 +26,7 @@ public class InteractionHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        HoverInteract();
 
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
@@ -32,17 +36,34 @@ public class InteractionHandler : MonoBehaviour
     }
 
 
-    void TryInteract()
+    void HoverInteract()
     {
         bool hasHit = Physics.Raycast(mainCamera.transform.position, mainCamera.transform.forward, out RaycastHit hitInfo, raycastDist, layerMask);
 
-        if (!hasHit) return;
+        if (!hasHit)
+        {
+            UiManager.current.SetCursorDefault();
+            return;
+        }
 
-        bool hasInteractor = hitInfo.collider.TryGetComponent<Interactor>(out Interactor interactor);
+        bool hasInteractor = hitInfo.collider.TryGetComponent<Interactor>(out hoveredInteractor);
 
-        if (!hasInteractor) return;
 
-        interactor.Interact();
+        if (hasInteractor)
+        {
+            UiManager.current.SetCursorInteract();
+        }
+        else
+        {
+            UiManager.current.SetCursorDefault();
+        }
 
+    }
+
+    void TryInteract()
+    {
+        if (hoveredInteractor == null) return;
+
+        hoveredInteractor.Interact();
     }
 }

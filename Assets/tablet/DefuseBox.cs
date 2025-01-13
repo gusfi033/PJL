@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class DefuseBox : MonoBehaviour
+public class DefuseBox : MonoBehaviour, Interactor
 {
 
     float defuseTime = 10f;
@@ -21,29 +21,25 @@ public class DefuseBox : MonoBehaviour
     }
 
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.attachedRigidbody == null) return;
-        if (!other.attachedRigidbody.CompareTag("Player")) return;
-
-        isDefusing = true;
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.attachedRigidbody == null) return;
-        if (!other.attachedRigidbody.CompareTag("Player")) return;
-
-        isDefusing = false;
-
-    }
-
 
     void Update()
     {
+        if (isDefusing)
+        {
+            if (!Input.GetKey(KeyCode.Mouse0))
+            {
+                UiManager.current.ShowCursor();
+                isDefusing = false;
+            }
+        }
+
+
+
         if (!isDefusing)
         {
             UiManager.current.HideDefuseProgress();
+
+            currentValue = 0;
         }
 
         if (!isDefusing) return;
@@ -72,5 +68,12 @@ public class DefuseBox : MonoBehaviour
         UiManager.current.ShowCompleteProgress();
         GameManager.current.GameWin();
 
+    }
+
+    public void Interact()
+    {
+        isDefusing = true;
+      
+        UiManager.current.HideCursor(); 
     }
 }

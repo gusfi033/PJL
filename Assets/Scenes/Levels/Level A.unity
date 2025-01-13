@@ -543,7 +543,7 @@ GameObject:
   - component: {fileID: 1069626205}
   - component: {fileID: 1069626206}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: PstProcessing
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -699,11 +699,6 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 0
---- !u!223 &1147134769 stripped
-Canvas:
-  m_CorrespondingSourceObject: {fileID: 6870827652505706208, guid: dd6426cf88c946a4b996d47b7875999f, type: 3}
-  m_PrefabInstance: {fileID: 1657832203}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1245010926
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -837,14 +832,6 @@ PrefabInstance:
     - target: {fileID: 1440736633545560327, guid: dd6426cf88c946a4b996d47b7875999f, type: 3}
       propertyPath: m_Name
       value: UI Manager
-      objectReference: {fileID: 0}
-    - target: {fileID: 3282604675195111042, guid: dd6426cf88c946a4b996d47b7875999f, type: 3}
-      propertyPath: cameraCanvas
-      value: 
-      objectReference: {fileID: 1147134769}
-    - target: {fileID: 6870827652505706208, guid: dd6426cf88c946a4b996d47b7875999f, type: 3}
-      propertyPath: m_Camera
-      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 8890633869405664954, guid: dd6426cf88c946a4b996d47b7875999f, type: 3}
       propertyPath: m_LocalPosition.x

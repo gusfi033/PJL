@@ -26,6 +26,13 @@ public class Bomb : MonoBehaviour
 
     private void Update()
     {
+
+        if (Input.GetKeyUp(KeyCode.F2))
+        {
+            Explode();  
+        }
+
+
         // Decrementa o tempo se ele ainda for maior que zero
         if (remainingTime > 0)
         {
@@ -44,6 +51,8 @@ public class Bomb : MonoBehaviour
     {
         remainingTime = 0;
         UiManager.current.ShowBombCountDownExplode();
+
+        CameraShaker.current.Shake(5, 0.1f, 10);
 
  
         // Reproduz todos os sistemas de partículas

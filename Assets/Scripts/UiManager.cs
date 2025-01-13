@@ -9,13 +9,20 @@ public class UiManager : MonoBehaviour
     public Canvas cameraCanvas;
     public static UiManager current;
 
+    [Header("Center Cursor")]
+    public GameObject cursorContainer;
+    public GameObject cursorDefault;
+    public GameObject cursorInteract;
+
     [Header("Bomb")]
     [SerializeField] TextMeshProUGUI countdownText;  // Texto do countdown
 
 
     [Header("Defuse")]
+    [SerializeField] TextMeshProUGUI defuseWinText;
     [SerializeField] TextMeshProUGUI text;
     [SerializeField] Image image;
+    [SerializeField] GameObject defuseContainer;
 
     private void Awake()
     {
@@ -46,21 +53,48 @@ public class UiManager : MonoBehaviour
     public void HideDefuseProgress()
     {
         image.enabled = false;
+        defuseContainer.SetActive(false);
         text.enabled = false;
     }
 
 
     public void ShowCompleteProgress()
     {
-        text.text = "DEFUSE";
-        text.color = Color.green;
+        defuseWinText.text = "DEFUSE";
         image.enabled = false;
+        defuseContainer.SetActive(false);
+
     }
     public void UpdateDefuseProgress(float percentage)
     {
+        defuseContainer.SetActive(true);
         image.enabled = true;
         text.enabled = true;
         text.text = $"{percentage} %";
         image.fillAmount = percentage / 100;
+    }
+
+
+    public void ShowCursor()
+    {
+        cursorContainer.SetActive(true);
+    }
+
+    public void HideCursor()
+    {
+        cursorContainer.SetActive(false);
+    }
+
+    public void SetCursorInteract()
+    {
+        cursorDefault.SetActive(false);
+        cursorInteract.SetActive(true);
+    }
+
+    public void SetCursorDefault()
+    {
+        cursorDefault.SetActive(true);
+        cursorInteract.SetActive(false);
+
     }
 }

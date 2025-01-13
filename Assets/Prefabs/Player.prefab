@@ -278,8 +278,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c657a4103065d74c8867eec2e5e579f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walkSpeed: 7
-  sprintSpeed: 8
+  walkSpeed: 5
+  sprintSpeed: 15
   slideSpeed: 50
   wallrunSpeed: 0
   groundDrag: 4
@@ -297,6 +297,7 @@ MonoBehaviour:
   whatIsGround:
     serializedVersion: 2
     m_Bits: 8
+  grounded: 0
   maxSlopeAngle: 40
   orientation: {fileID: 374683605523323230}
   head: {fileID: 7851328928338581862}
@@ -321,7 +322,7 @@ MonoBehaviour:
   maxSlideTime: 10000
   slideForce: 200
   slideYScale: 1
-  slideKey: 304
+  slideKey: 120
 --- !u!114 &6523134413554245908
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -335,7 +336,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainCamera: {fileID: 0}
-  raycastDist: 30
+  raycastDist: 3
   layerMask:
     serializedVersion: 2
     m_Bits: 1
