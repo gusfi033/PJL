@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 [RequireComponent(typeof(Rigidbody))]
 public class FreezePhysicsInteractor : MonoBehaviour, Interactor
 {
 
-    public Vector3 offset= new Vector3(0,0,1);
+    public Vector3 offset = new Vector3(0, 0, 1);
     public float freezeTime = 5f;
     Rigidbody body;
 
@@ -27,16 +28,20 @@ public class FreezePhysicsInteractor : MonoBehaviour, Interactor
 
     }
 
-    public void Interact()
+    public void Interact(float holdTime)
     {
-        Freeze();
+        Timer.current.DestroySubtractTimer();
+        Freeze(holdTime);
     }
 
-    void Freeze()
+    void Freeze(float holdTime)
     {
+        holdTime = holdTime * InteractionHandler.current.timerMultiplier;
+
         body.isKinematic = true;
 
-        Timer.current.CreateNewTimer(transform, offset, freezeTime);
+        var removedTime = Bomb.current.SubtractTime(holdTime);
+        Timer.current.CreateNewTimer(transform, offset, removedTime);
 
         StartCoroutine(WaitToUnfreeze());
     }
@@ -49,5 +54,10 @@ public class FreezePhysicsInteractor : MonoBehaviour, Interactor
     {
         yield return new WaitForSeconds(freezeTime);
         Unfreeze();
+    }
+
+    public void StartHoldInteract()
+    {
+        Timer.current.CreateSubtractTimer(transform, offset);
     }
 }

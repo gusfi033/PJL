@@ -70,10 +70,14 @@ public class DefuseBox : MonoBehaviour, Interactor
 
     }
 
-    public void Interact()
+    public void Interact(float holdTime)
     {
         isDefusing = true;
       
         UiManager.current.HideCursor(); 
+    }
+
+    public void StartHoldInteract()
+    {
     }
 }

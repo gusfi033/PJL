@@ -29,7 +29,7 @@ public class Bomb : MonoBehaviour
 
         if (Input.GetKeyUp(KeyCode.F2))
         {
-            Explode();  
+            Explode();
         }
 
 
@@ -47,14 +47,28 @@ public class Bomb : MonoBehaviour
 
     }
 
+    public float SubtractTime(float time)
+    {
+        var removedTime = time;
+        if(remainingTime < time)
+        {
+            removedTime = remainingTime;    
+        }
+        remainingTime -= removedTime;
+     
+        if (remainingTime < 0)
+            remainingTime = 0;
+
+        return removedTime;
+    }
     void Explode()
     {
         remainingTime = 0;
         UiManager.current.ShowBombCountDownExplode();
 
-        CameraShaker.current.Shake(5, 0.1f, 10);
+        CameraShaker.current.Shake(5, 0.5f, 20);
 
- 
+
         // Reproduz todos os sistemas de partículas
         foreach (var particleSystem in particleSystems)
         {
